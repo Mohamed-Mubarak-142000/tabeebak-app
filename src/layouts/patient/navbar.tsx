@@ -67,6 +67,9 @@ const Navbar = () => {
       role="presentation"
       onClick={handleDrawerToggle}
     >
+      <Box sx={{ p: 2 }}>
+        <Logo />
+      </Box>
       <List>
         {navItems.map((item) => (
           <ListItem

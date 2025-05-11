@@ -1,5 +1,5 @@
-import type { Theme, SxProps } from '@mui/material/styles';
-import type { ThemeDirection, ThemeColorScheme } from 'src/presentation/theme/types';
+import type { Theme, SxProps } from "@mui/material/styles";
+import type { ThemeColorScheme, ThemeDirection } from "../../theme";
 
 // ----------------------------------------------------------------------
 
@@ -9,10 +9,16 @@ export type SettingsState = {
   compactLayout?: boolean;
   direction?: ThemeDirection;
   colorScheme?: ThemeColorScheme;
-  contrast?: 'default' | 'hight';
-  navColor?: 'integrate' | 'apparent';
-  navLayout?: 'vertical' | 'horizontal' | 'mini';
-  primaryColor?: 'default' | 'preset1' | 'preset2' | 'preset3' | 'preset4' | 'preset5';
+  contrast?: "default" | "hight";
+  navColor?: "integrate" | "apparent";
+  navLayout?: "vertical" | "horizontal" | "mini";
+  primaryColor?:
+    | "default"
+    | "preset1"
+    | "preset2"
+    | "preset3"
+    | "preset4"
+    | "preset5";
 };
 
 export type SettingsContextValue = {
@@ -20,7 +26,10 @@ export type SettingsContextValue = {
   canReset: boolean;
   onReset: () => void;
   setState: (updateValue: Partial<SettingsState>) => void;
-  setField: (name: keyof SettingsState, updateValue: SettingsState[keyof SettingsState]) => void;
+  setField: (
+    name: keyof SettingsState,
+    updateValue: SettingsState[keyof SettingsState]
+  ) => void;
   // Drawer
   openDrawer: boolean;
   onCloseDrawer: () => void;

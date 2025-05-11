@@ -1,13 +1,13 @@
-import type { ColorSystem } from '@mui/material/styles';
-import type { SettingsState } from 'src/presentation/components/settings';
+import type { ColorSystem } from "@mui/material/styles";
 
-import { hexToRgbChannel, createPaletteChannel } from 'minimal-shared/utils';
+import { hexToRgbChannel, createPaletteChannel } from "minimal-shared/utils";
 
-import { themeConfig } from '../theme-config';
-import { primaryColorPresets } from './color-presets';
-import { createShadowColor } from '../core/custom-shadows';
+import { themeConfig } from "../theme-config";
+import { primaryColorPresets } from "./color-presets";
+import { createShadowColor } from "../core/custom-shadows";
 
-import type { ThemeOptions, ThemeColorScheme } from '../types'
+import type { ThemeOptions, ThemeColorScheme } from "../types";
+import type { SettingsState } from "../../components/settings";
 
 // ----------------------------------------------------------------------
 
@@ -24,17 +24,19 @@ export function updateCoreWithSettings(
   const {
     direction,
     fontFamily,
-    contrast = 'default',
-    primaryColor = 'default',
+    contrast = "default",
+    primaryColor = "default",
   } = settingsState ?? {};
 
+  const isDefaultContrast = contrast === "default";
+  const isDefaultPrimaryColor = primaryColor === "default";
 
-  const isDefaultContrast = contrast === 'default';
-  const isDefaultPrimaryColor = primaryColor === 'default';
+  const lightPalette = theme.colorSchemes?.light
+    .palette as ColorSystem["palette"];
 
-  const lightPalette = theme.colorSchemes?.light.palette as ColorSystem['palette'];
-
-  const updatedPrimaryColor = createPaletteChannel(primaryColorPresets[primaryColor]);
+  const updatedPrimaryColor = createPaletteChannel(
+    primaryColorPresets[primaryColor]
+  );
   // const updatedSecondaryColor = createPaletteChannel(SECONDARY_COLORS[primaryColor!]);
 
   const updateColorScheme = (scheme: ThemeColorScheme) => {
@@ -46,7 +48,7 @@ export function updateCoreWithSettings(
         primary: updatedPrimaryColor,
         // secondary: updatedSecondaryColor,
       }),
-      ...(scheme === 'light' && {
+      ...(scheme === "light" && {
         background: {
           ...lightPalette?.background,
           ...(!isDefaultContrast && {
@@ -74,7 +76,7 @@ export function updateCoreWithSettings(
 
   // Get the current direction, either from settingsState or fallback to default
   const currentDirection = direction || theme.direction || "ltr";
-  
+
   // Get the appropriate fonts based on the direction
   const fontConfig = themeConfig.fontFamily.getFont(currentDirection);
 
@@ -82,8 +84,8 @@ export function updateCoreWithSettings(
     ...theme,
     direction: currentDirection,
     colorSchemes: {
-      light: updateColorScheme('light'),
-      dark: updateColorScheme('dark'),
+      light: updateColorScheme("light"),
+      dark: updateColorScheme("dark"),
     },
     typography: {
       ...theme.typography,
