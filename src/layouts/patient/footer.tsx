@@ -27,11 +27,11 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="xl">
-        <Grid container spacing={4}>
+        <Grid container>
           {/* About Section */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={3} sx={{ mb: 4 }}>
             <Logo />
-            <Typography variant="body2" sx={{ mb: 2, mt: 2 }}>
+            <Typography variant="body2" sx={{ mb: 2, mt: 2, paddingX: 1 }}>
               {t("footer.about.description")}
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
@@ -43,7 +43,7 @@ const Footer = () => {
           </Grid>
 
           {/* Quick Links */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={3} sx={{ mb: 4 }}>
             <Typography
               variant="h6"
               gutterBottom
@@ -69,7 +69,7 @@ const Footer = () => {
           </Grid>
 
           {/* Contact Info */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={3} sx={{ mb: 4 }}>
             <Typography
               variant="h6"
               gutterBottom
@@ -93,7 +93,7 @@ const Footer = () => {
           </Grid>
 
           {/* Social Media */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={3} sx={{ mb: 4 }}>
             <Typography variant="h6" gutterBottom>
               {t("footer.social.title")}
             </Typography>
@@ -122,10 +122,10 @@ const Footer = () => {
               }}
             >
               <Typography variant="subtitle2" gutterBottom>
-                {t("footer.social.emergency.title")}
+                {t("footer.social.emergency_section.title")}
               </Typography>
               <Typography variant="h6">
-                {t("footer.social.emergency.number")}
+                {t("footer.social.emergency_section.number")}
               </Typography>
             </Box>
           </Grid>
