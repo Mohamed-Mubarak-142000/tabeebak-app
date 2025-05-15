@@ -125,7 +125,7 @@ const Navbar = () => {
   return (
     <>
       <AppBar
-        position="static"
+        position="fixed"
         sx={{
           backgroundColor: theme.palette.primary.darker,
           boxShadow: theme.shadows[3],
@@ -144,15 +144,21 @@ const Navbar = () => {
           }}
         >
           {isMobile && (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, color: theme.palette.text.primary }}
-            >
-              <MenuIcon />
-            </IconButton>
+            <>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, color: theme.palette.text.primary }}
+              >
+                <MenuIcon />
+              </IconButton>
+
+              <Box sx={{ display: "flex", alignItems: "center", width: 200 }}>
+                <CustomerLanguagePopover />
+              </Box>
+            </>
           )}
 
           <Logo />

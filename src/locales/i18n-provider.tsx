@@ -5,6 +5,9 @@ import { initReactI18next, I18nextProvider as Provider } from "react-i18next";
 import { fallbackLng, i18nOptions } from "./locales-config";
 import CommonAr from "./langs/ar/common.json";
 import CommonEn from "./langs/en/common.json";
+
+import HomeAr from "./langs/ar/home.json";
+import HomeEn from "./langs/en/home.json";
 // ----------------------------------------------------------------------
 
 /**
@@ -22,9 +25,11 @@ i18next
     resources: {
       en: {
         common: CommonEn,
+        home: HomeEn,
       },
       ar: {
         common: CommonAr,
+        home: HomeAr,
       },
     },
     detection: { caches: ["localStorage"] },

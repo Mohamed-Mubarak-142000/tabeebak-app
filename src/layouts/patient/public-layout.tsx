@@ -8,7 +8,16 @@ const PublicLayout = () => {
   return (
     <>
       <Navbar />
-      <Stack sx={{ minHeight: "100vh" }}>
+      <Stack
+        spacing={{ xs: 5, md: 10, lg: 15 }}
+        sx={{
+          minHeight: "100vh",
+          py: { xs: 5, md: 10 },
+          px: { xs: 2, md: 5 },
+          width: { xs: "100%", md: "80%" },
+          mx: "auto",
+        }}
+      >
         <Outlet />
       </Stack>
       <Footer />
