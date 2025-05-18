@@ -19,3 +19,8 @@ export interface Doctor {
   fees: number;
   address: Address;
 }
+
+export interface TabProps {
+  label: string;
+  value: string;
+}

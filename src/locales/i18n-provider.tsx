@@ -8,6 +8,13 @@ import CommonEn from "./langs/en/common.json";
 
 import HomeAr from "./langs/ar/home.json";
 import HomeEn from "./langs/en/home.json";
+
+import AboutAr from "./langs/ar/about.json";
+import AboutEn from "./langs/en/about.json";
+
+import ContactUsAR from "./langs/ar/contact-us.json";
+import ContactUsEN from "./langs/en/contact-us.json";
+
 // ----------------------------------------------------------------------
 
 /**
@@ -26,10 +33,15 @@ i18next
       en: {
         common: CommonEn,
         home: HomeEn,
+        about: AboutEn,
+        "contact-us": ContactUsEN,
       },
+
       ar: {
         common: CommonAr,
         home: HomeAr,
+        about: AboutAr,
+        "contact-us": ContactUsAR,
       },
     },
     detection: { caches: ["localStorage"] },

@@ -6,7 +6,7 @@ export const doctors: Doctor[] = [
     _id: "doc1",
     name: "Dr. Richard James",
     image: assets.doc1,
-    speciality: "General physician",
+    speciality: "General_physician",
     degree: "MBBS",
     experience: "4 Years",
     about:
@@ -96,7 +96,7 @@ export const doctors: Doctor[] = [
     _id: "doc7",
     name: "Dr. Christopher Davis",
     image: assets.doc7,
-    speciality: "General physician",
+    speciality: "General_physician",
     degree: "MBBS",
     experience: "4 Years",
     about:
@@ -186,7 +186,7 @@ export const doctors: Doctor[] = [
     _id: "doc13",
     name: "Dr. Chloe Evans",
     image: assets.doc13,
-    speciality: "General physician",
+    speciality: "General_physician",
     degree: "MBBS",
     experience: "4 Years",
     about:
@@ -224,6 +224,48 @@ export const doctors: Doctor[] = [
     fees: 30,
     address: {
       line1: "37th Cross, Richmond",
+      line2: "Circle, Ring Road, London",
+    },
+  },
+  {
+    _id: "doc16",
+    name: "Dr. Noah Thompson",
+    image: assets.doc1, // تأكد من وجود الصورة في ملف assets
+    speciality: "Gastroenterologist",
+    degree: "MD",
+    experience: "5 Years",
+    about: "متخصص في أمراض الجهاز الهضمي والكبد مع خبرة واسعة في المناظير.",
+    fees: 70,
+    address: {
+      line1: "67th Cross, Richmond",
+      line2: "Circle, Ring Road, London",
+    },
+  },
+  {
+    _id: "doc17",
+    name: "Dr. Sophia Roberts",
+    image: assets.doc7,
+    speciality: "Pediatricians",
+    degree: "MBBS, DCH",
+    experience: "6 Years",
+    about: "طبيبة أطفال متخصصة في حديثي الولادة وصحة الطفل.",
+    fees: 55,
+    address: {
+      line1: "77th Cross, Richmond",
+      line2: "Circle, Ring Road, London",
+    },
+  },
+  {
+    _id: "doc18",
+    name: "Dr. Ethan Wilson",
+    image: assets.doc8,
+    speciality: "Cardiologist",
+    degree: "MD, DM Cardiology",
+    experience: "8 Years",
+    about: "استشاري أمراض القلب مع خبرة في القسطرة العلاجية.",
+    fees: 90,
+    address: {
+      line1: "87th Cross, Richmond",
       line2: "Circle, Ring Road, London",
     },
   },

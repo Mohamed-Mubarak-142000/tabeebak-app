@@ -43,5 +43,9 @@
       "main": "Tabeebak Platform. All rights reserved.",
       "subtext": "Egypt's premier medical booking system"
     }
+  },
+  "all_doctors": {
+    "title": "Find the Best Doctors",
+    "subtitle": "Search for doctors by specialty, location, and more."
   }
 }

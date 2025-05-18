@@ -3,16 +3,34 @@ import TitleSection from "../title-section";
 import { doctors } from "./data-static-doctors";
 import DoctorItem from "./doctor-card";
 import { useTranslate } from "../../locales";
+import { useNavigate } from "react-router-dom";
 
 const TopDoctors = () => {
   const { t } = useTranslate("home");
+  const navigate = useNavigate();
+  const navigateToShowAll = () => {
+    navigate("/doctors");
+  };
   return (
     <Stack spacing={5}>
       <TitleSection
-        title={{ text: t("top_doctors.title"), variant: "h3" }}
-        subTitle={{
-          text: t("top_doctors.description"),
-          variant: "h6",
+        title={t("top_doctors.title")}
+        subTitle={t("top_doctors.description")}
+        slotProps={{
+          title: {
+            variant: "h3",
+            sx: {
+              fontSize: { xs: "1.5rem", md: "2rem", lg: "3rem" },
+              fontWeight: (theme) => theme.typography.fontWeightBold,
+            },
+          },
+          subTitle: {
+            variant: "body1",
+            sx: {
+              fontSize: { xs: ".5rem", md: ".75rem", lg: "1rem" },
+              fontWeight: (theme) => theme.typography.fontWeightRegular,
+            },
+          },
         }}
       />
 
@@ -21,13 +39,13 @@ const TopDoctors = () => {
           display: "grid",
           gridTemplateColumns: {
             xs: "repeat(1, 1fr)",
-            md: "repeat(2, 1fr)",
+            sm: "repeat(2, 1fr)",
             lg: "repeat(4, 1fr)",
           },
           gap: 2,
         }}
       >
-        {doctors.map((item, index) => (
+        {doctors.slice(0, 10).map((item, index) => (
           <DoctorItem doctor={item} key={index} />
         ))}
       </Box>
@@ -51,6 +69,7 @@ const TopDoctors = () => {
               }),
           },
         }}
+        onClick={navigateToShowAll}
       >
         <Typography
           variant="h3"

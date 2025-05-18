@@ -37,10 +37,23 @@ const FindBySpecialty = () => {
   return (
     <Stack spacing={5}>
       <TitleSection
-        title={{ text: t("speciality.title"), variant: "h3" }}
-        subTitle={{
-          text: t("speciality.subtitle"),
-          variant: "h6",
+        title={t("speciality.title")}
+        subTitle={t("speciality.subtitle")}
+        slotProps={{
+          title: {
+            variant: "h3",
+            sx: {
+              fontSize: { xs: "1.5rem", md: "2rem", lg: "3rem" },
+              fontWeight: (theme) => theme.typography.fontWeightBold,
+            },
+          },
+          subTitle: {
+            variant: "body1",
+            sx: {
+              fontSize: { xs: ".5rem", md: ".75rem", lg: "1rem" },
+              fontWeight: (theme) => theme.typography.fontWeightRegular,
+            },
+          },
         }}
       />
 
@@ -49,7 +62,7 @@ const FindBySpecialty = () => {
           display: "grid",
           gridTemplateColumns: {
             xs: "repeat(1, 1fr)",
-            md: "repeat(2, 1fr)",
+            sm: "repeat(2, 1fr)",
             lg: "repeat(6, 1fr)",
           },
           gap: { xs: 3, md: 2, lg: 3 },

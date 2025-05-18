@@ -1,40 +1,62 @@
-// src/App.tsx
-import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/home-page";
-import AboutPage from "./pages/about-page";
-import DoctorsPage from "./pages/doctors-page";
-import ContactUsPage from "./pages/contact-us-page";
-import LoginPage from "./pages/login-page";
-import ProfilePage from "./pages/profile-page";
-import RegisterPage from "./pages/register-page";
-import NotFoundPage from "./pages/not-found-page";
-import AppointmentsPage from "./pages/appointments-page";
-import AppointmentPage from "./pages/appointment-page";
-import { usePathname } from "./hooks";
+import { useEffect, Suspense, lazy } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LocalizationProvider } from "./locales";
 import { CssBaseline } from "@mui/material";
-import PublicLayout from "./layouts/patient/public-layout";
-import AuthLayout from "./layouts/patient/auth-layout";
-import PrivateLayout from "./layouts/patient/private-layout";
 import { AuthProvider } from "./layouts/patient/context/auth-context";
 import { themeConfig, ThemeProvider } from "./theme";
 import { defaultSettings, SettingsProvider } from "./components/settings";
+import { RouteLoading } from "./components/route-loading";
 
-function useScrollToTop() {
-  const pathname = usePathname();
+// Lazy load pages
+const HomePage = lazy(() => import("./pages/home-page"));
+const AboutPage = lazy(() => import("./pages/about-page"));
+const DoctorsPage = lazy(() => import("./pages/doctors-page"));
+const ContactUsPage = lazy(() => import("./pages/contact-us-page"));
+const LoginPage = lazy(() => import("./pages/login-page"));
+const ProfilePage = lazy(() => import("./pages/profile-page"));
+const RegisterPage = lazy(() => import("./pages/register-page"));
+const NotFoundPage = lazy(() => import("./pages/not-found-page"));
+const AppointmentsPage = lazy(() => import("./pages/appointments-page"));
+const AppointmentPage = lazy(() => import("./pages/appointment-page"));
+const PublicLayout = lazy(() => import("./layouts/patient/public-layout"));
+const AuthLayout = lazy(() => import("./layouts/patient/auth-layout"));
+const PrivateLayout = lazy(() => import("./layouts/patient/private-layout"));
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+const router = createBrowserRouter([
+  {
+    element: <PublicLayout />,
 
-  return null;
-}
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/home", element: <HomePage /> },
+      { path: "/about", element: <AboutPage /> },
+      { path: "/doctors", element: <DoctorsPage /> },
+      { path: "/doctors/:specialty", element: <DoctorsPage /> },
+      { path: "/contact", element: <ContactUsPage /> },
+    ],
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <RegisterPage /> },
+    ],
+  },
+  {
+    element: <PrivateLayout />,
+    children: [
+      { path: "/profile", element: <ProfilePage /> },
+      { path: "/appointments", element: <AppointmentsPage /> },
+      { path: "/appointment/:docId", element: <AppointmentPage /> },
+    ],
+  },
+  { path: "*", element: <NotFoundPage /> },
+]);
 
 function App() {
-  useScrollToTop();
-
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const handleStorageEvent = (event: StorageEvent) => {
       if (event.key?.startsWith("oidc.")) {
         window.location.reload();
@@ -55,36 +77,9 @@ function App() {
             defaultMode={themeConfig.defaultMode}
             modeStorageKey={themeConfig.modeStorageKey}
           >
-            <Routes>
-              {/* Public Routes */}
-              <Route element={<PublicLayout />}>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/doctors" element={<DoctorsPage />} />
-                <Route path="/doctors/:specialty" element={<DoctorsPage />} />
-                <Route path="/contact-us" element={<ContactUsPage />} />
-              </Route>
-
-              {/* Authentication Routes (for non-authenticated users) */}
-              <Route element={<AuthLayout />}>
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-              </Route>
-
-              {/* Private Routes (for authenticated users) */}
-              <Route element={<PrivateLayout />}>
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/appointments" element={<AppointmentsPage />} />
-                <Route
-                  path="/appointment/:docId"
-                  element={<AppointmentPage />}
-                />
-              </Route>
-
-              {/* 404 Page */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+            <Suspense fallback={<RouteLoading />}>
+              <RouterProvider router={router} />
+            </Suspense>
           </ThemeProvider>
         </AuthProvider>
       </LocalizationProvider>

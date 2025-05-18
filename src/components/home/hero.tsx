@@ -8,7 +8,7 @@ const Hero = () => {
         backgroundColor: "primary.darker",
         width: "100%",
         mx: "auto",
-        mt: 5,
+        mt: { xs: 7, lg: 3 },
         borderRadius: 2,
         display: "grid",
         gridTemplateColumns: {

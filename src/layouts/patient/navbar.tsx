@@ -106,18 +106,6 @@ const Navbar = () => {
             sx={{ textAlign: "center" }}
           />
         </ListItem>
-        <ListItem>
-          {/* <FormControlLabel
-            control={
-              <Switch
-                checked={darkMode}
-                onChange={toggleTheme}
-                color="secondary"
-              />
-            }
-            label={darkMode ? "Dark Mode" : "Light Mode"}
-          /> */}
-        </ListItem>
       </List>
     </Box>
   );
@@ -143,26 +131,7 @@ const Navbar = () => {
             width: "100%",
           }}
         >
-          {isMobile && (
-            <>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, color: theme.palette.text.primary }}
-              >
-                <MenuIcon />
-              </IconButton>
-
-              <Box sx={{ display: "flex", alignItems: "center", width: 200 }}>
-                <CustomerLanguagePopover />
-              </Box>
-            </>
-          )}
-
           <Logo />
-
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
@@ -201,19 +170,32 @@ const Navbar = () => {
               {t("navbar.login")}
             </Button>
 
-            {/* <FormControlLabel
-              control={
-                <Switch
-                  checked={darkMode}
-                  onChange={toggleTheme}
-                  color="secondary"
-                />
-              }
-              label={darkMode ? "Dark" : "Light"}
-            /> */}
-
             <CustomerLanguagePopover />
           </Box>
+
+          {isMobile && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <CustomerLanguagePopover />
+              </Box>
+
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ color: theme.palette.text.primary }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
 

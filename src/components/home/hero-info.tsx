@@ -33,7 +33,7 @@ const HeroInfo = () => {
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          alignItems: { xs: "start", lg: "center" },
           flexDirection: { xs: "column-reverse", lg: "row" },
           gap: { xs: 1, md: 2 },
         }}

@@ -1,56 +1,66 @@
-import { Stack, Typography, type SxProps } from "@mui/material";
-import type { Variant } from "@mui/material/styles/createTypography";
+import {
+  Stack,
+  Typography,
+  type SxProps,
+  type TypographyProps,
+} from "@mui/material";
 import type { Theme } from "@mui/system";
 
 interface TitleSectionProps {
-  title: {
-    sx?: SxProps<Theme>;
-    text: string;
-    variant?: Variant;
-  };
-  subTitle?: {
-    sx?: SxProps<Theme>;
-    text: string;
-    variant?: Variant;
+  title?: string;
+  subTitle?: string;
+  sx?: SxProps<Theme>;
+  slotProps?: {
+    title?: TypographyProps;
+    subTitle?: TypographyProps;
   };
 }
 
 const TitleSection = ({
-  title = { text: "", variant: "h3" },
-  subTitle = { text: "", variant: "h6" },
+  title,
+  subTitle,
+  sx,
+  slotProps,
 }: TitleSectionProps) => {
   return (
     <Stack
-      spacing={{ xs: 1, md: 2 }}
+      spacing={{ xs: 1 }}
       sx={{
         width: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        ...sx,
       }}
     >
-      <Typography
-        variant={title.variant}
-        sx={{
-          color: (theme) => theme.palette.text.primary,
-          fontSize: (theme) => theme.typography.pxToRem(24),
-          fontWeight: (theme) => theme.typography.fontWeightBold,
-          ...title.sx,
-        }}
-      >
-        {title.text}
-      </Typography>
+      {title && (
+        <Typography
+          variant={slotProps?.title?.variant ?? "h5"}
+          sx={{
+            color: (theme) => theme.palette.text.primary,
+            fontSize: (theme) => theme.typography.pxToRem(24),
+            fontWeight: (theme) => theme.typography.fontWeightBold,
+            textAlign: "center",
+            ...slotProps?.title?.sx,
+          }}
+          {...slotProps?.title}
+        >
+          {title}
+        </Typography>
+      )}
+
       {subTitle && (
         <Typography
-          variant={subTitle.variant}
+          variant={slotProps?.subTitle?.variant ?? "subtitle1"}
           sx={{
             textAlign: "center",
             color: (theme) => theme.palette.text.secondary,
-            fontWeight: (theme) => theme.typography.fontWeightBold,
-            ...subTitle.sx,
+            fontWeight: (theme) => theme.typography.fontWeightRegular,
+            ...slotProps?.subTitle?.sx,
           }}
+          {...slotProps?.subTitle}
         >
-          {subTitle.text}
+          {subTitle}
         </Typography>
       )}
     </Stack>

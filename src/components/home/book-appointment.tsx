@@ -7,15 +7,17 @@ const BookingAppointment = () => {
   return (
     <Box
       sx={{
-        height: 500,
+        maxHeight: 500,
         backgroundColor: "primary.darker",
         width: "100%",
         mx: "auto",
         mt: 5,
+        p: 2,
         borderRadius: 2,
         display: "grid",
         gridTemplateColumns: {
           xs: "repeat(1, 1fr)",
+          sm: "repeat(2, 1fr)",
           lg: "repeat(2, 1fr)",
         },
         gap: 2,
