@@ -12,7 +12,9 @@ import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { useTranslate } from "../../locales";
 import Logo from "../../components/logo";
-import type { NavItem } from "../../types";
+import type { AuthTab, NavItem } from "../../types";
+import { AuthDialog } from "../../components/auth/auth-dialog";
+import { useState } from "react";
 
 interface MobileMenuProps {
   mobileOpen: boolean;
@@ -27,7 +29,17 @@ export const MobileMenu = ({
 }: MobileMenuProps) => {
   const theme = useTheme();
   const { t } = useTranslate("common");
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [authDialogTab, setAuthDialogTab] = useState<AuthTab>("login");
 
+  const handleAuthDialogOpen = (tab: AuthTab) => {
+    setAuthDialogTab(tab);
+    setAuthDialogOpen(true);
+  };
+
+  const handleAuthDialogClose = () => {
+    setAuthDialogOpen(false);
+  };
   return (
     <>
       <IconButton
@@ -85,9 +97,8 @@ export const MobileMenu = ({
                 <ListItemText primary={item.name} />
               </ListItem>
             ))}
-            <ListItem
-              component={Link}
-              to="/login"
+            <Box
+              onClick={() => handleAuthDialogOpen("login")}
               sx={{
                 backgroundColor: theme.palette.primary.light,
                 color: theme.palette.common.white,
@@ -104,10 +115,16 @@ export const MobileMenu = ({
                 primary={t("navbar.login")}
                 sx={{ textAlign: "center" }}
               />
-            </ListItem>
+            </Box>
           </List>
         </Box>
       </Drawer>
+
+      <AuthDialog
+        open={authDialogOpen}
+        onClose={handleAuthDialogClose}
+        initialTab={authDialogTab}
+      />
     </>
   );
 };
