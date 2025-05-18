@@ -11,8 +11,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { useTranslate } from "../../locales";
-import type { NavItem } from "./navbar";
 import Logo from "../../components/logo";
+import type { NavItem } from "../../types";
 
 interface MobileMenuProps {
   mobileOpen: boolean;

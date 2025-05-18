@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import { StyledNavLink, type NavItem } from "./navbar";
+import { StyledNavLink } from "./navbar";
+import type { NavItem } from "../../types";
 interface NavItemsProps {
   items: NavItem[];
 }

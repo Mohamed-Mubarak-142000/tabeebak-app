@@ -1,5 +1,5 @@
 import { tFn } from "../../locales";
-import type { NavItem } from "./navbar";
+import type { NavItem } from "../../types";
 
 export const navItems: NavItem[] = [
   { name: tFn("common:navbar.home"), path: "/" },

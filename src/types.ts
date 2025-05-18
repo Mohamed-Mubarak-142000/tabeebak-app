@@ -26,3 +26,8 @@ export interface TabProps {
 }
 
 export type AuthTab = "login" | "register";
+
+export interface NavItem {
+  name: string;
+  path: string;
+}
