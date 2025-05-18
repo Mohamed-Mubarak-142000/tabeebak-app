@@ -36,7 +36,7 @@ const CustomTabs: React.FC<CustomTabsProps> = ({
 
   const tabIndex = isControlled ? controlledTabIndex : internalTabIndex;
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     if (isControlled) {
       onTabChange?.(newValue);
     } else {

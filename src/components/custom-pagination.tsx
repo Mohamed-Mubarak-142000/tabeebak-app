@@ -33,16 +33,14 @@ const PaginationControlled = <T,>({
 }: PaginationControlledProps<T>) => {
   const [page, setPage] = React.useState(initialPage);
 
-  // حساب العناصر للصفحة الحالية
   const paginatedItems = React.useMemo(() => {
     const startIndex = (page - 1) * countPerPage;
     return items.slice(startIndex, startIndex + countPerPage);
   }, [items, page, countPerPage]);
 
-  // حساب عدد الصفحات الكلي
   const totalPages = Math.ceil(items.length / countPerPage);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     if (onPageChange) {
       const startIndex = (value - 1) * countPerPage;
