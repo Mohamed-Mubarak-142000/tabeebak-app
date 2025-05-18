@@ -24,3 +24,5 @@ export interface TabProps {
   label: string;
   value: string;
 }
+
+export type AuthTab = "login" | "register";

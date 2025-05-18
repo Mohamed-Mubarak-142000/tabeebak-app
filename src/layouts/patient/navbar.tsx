@@ -1,25 +1,24 @@
+// components/navbar/Navbar.tsx
 import { useState } from "react";
 import {
   AppBar,
   Toolbar,
-  IconButton,
-  Button,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
   Box,
-  styled,
   useMediaQuery,
   useTheme,
+  styled,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link, NavLink } from "react-router-dom";
-import Logo from "../../components/logo";
-import { useTranslate } from "../../locales";
 import { CustomerLanguagePopover } from "../../components/lang-switch";
+import { AuthDialog } from "../../components/auth/auth-dialog";
+import { NavLink } from "react-router-dom";
+import Logo from "../../components/logo";
+import { NavItems } from "./nav-item";
+import { AuthButtons } from "./auth-button";
+import { MobileMenu } from "./mobile-menu";
+import { navItems } from "./nav-links";
+import type { AuthTab } from "../../types";
 
-const StyledNavLink = styled(NavLink)(({ theme }) => ({
+export const StyledNavLink = styled(NavLink)(({ theme }) => ({
   textDecoration: "none",
   color: theme.palette.common.white,
   fontWeight: 500,
@@ -34,81 +33,26 @@ const StyledNavLink = styled(NavLink)(({ theme }) => ({
   },
 }));
 
-interface NavItem {
-  name: string;
-  path: string;
-}
-
-const Navbar = () => {
-  const { t } = useTranslate("common");
+export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [authDialogTab, setAuthDialogTab] = useState<AuthTab>("login");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const navItems: NavItem[] = [
-    { name: t("navbar.home"), path: "/" },
-    { name: t("navbar.about"), path: "/about" },
-    { name: t("navbar.doctors"), path: "/doctors" },
-    { name: t("navbar.contact"), path: "/contact" },
-  ];
+  const handleAuthDialogOpen = (tab: AuthTab) => {
+    setAuthDialogTab(tab);
+    setAuthDialogOpen(true);
+  };
 
-  const drawer = (
-    <Box
-      sx={{
-        width: 250,
-        backgroundColor: theme.palette.primary.darker,
-        height: "100%",
-        color: theme.palette.text.primary,
-      }}
-      role="presentation"
-      onClick={handleDrawerToggle}
-    >
-      <Box sx={{ p: 2 }}>
-        <Logo />
-      </Box>
-      <List>
-        {navItems.map((item) => (
-          <ListItem
-            key={item.name}
-            component={Link}
-            to={item.path}
-            sx={{
-              color: theme.palette.common.white,
-              "&:hover": {
-                backgroundColor: theme.palette.action.hover,
-              },
-            }}
-          >
-            <ListItemText primary={item.name} />
-          </ListItem>
-        ))}
-        <ListItem
-          component={Link}
-          to="/login"
-          sx={{
-            backgroundColor: theme.palette.primary.light,
-            color: theme.palette.common.white,
-            marginTop: 2,
-            width: "90%",
-            mx: "auto",
-            borderRadius: 1,
-            "&:hover": {
-              backgroundColor: theme.palette.primary.main,
-            },
-          }}
-        >
-          <ListItemText
-            primary={t("navbar.login")}
-            sx={{ textAlign: "center" }}
-          />
-        </ListItem>
-      </List>
-    </Box>
-  );
+  const handleAuthDialogClose = () => {
+    setAuthDialogOpen(false);
+  };
 
   return (
     <>
@@ -132,48 +76,21 @@ const Navbar = () => {
           }}
         >
           <Logo />
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              gap: 4,
-              alignItems: "center",
-            }}
-          >
-            {navItems.map((item) => (
-              <StyledNavLink key={item.name} to={item.path}>
-                {item.name}
-              </StyledNavLink>
-            ))}
-          </Box>
 
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Button
-              variant="outlined"
+          <NavItems items={navItems} />
+
+          {!isMobile ? (
+            <Box
               sx={{
-                backgroundColor: theme.palette.info.dark,
-                color: theme.palette.common.white,
-                borderColor: theme.palette.info.dark,
-                "&:hover": {
-                  backgroundColor: theme.palette.info.darker,
-                  borderColor: theme.palette.info.darker,
-                },
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+                gap: 2,
               }}
-              component={Link}
-              to="/login"
             >
-              {t("navbar.login")}
-            </Button>
-
-            <CustomerLanguagePopover />
-          </Box>
-
-          {isMobile && (
+              <AuthButtons onLogin={() => handleAuthDialogOpen("login")} />
+              <CustomerLanguagePopover />
+            </Box>
+          ) : (
             <Box
               sx={{
                 display: "flex",
@@ -184,39 +101,21 @@ const Navbar = () => {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <CustomerLanguagePopover />
               </Box>
-
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ color: theme.palette.text.primary }}
-              >
-                <MenuIcon />
-              </IconButton>
+              <MobileMenu
+                mobileOpen={mobileOpen}
+                items={navItems}
+                onToggle={handleDrawerToggle}
+              />
             </Box>
           )}
         </Toolbar>
       </AppBar>
 
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        sx={{
-          display: { xs: "block", md: "none" },
-          "& .MuiDrawer-paper": {
-            boxSizing: "border-box",
-            width: 250,
-            backgroundColor: theme.palette.background.paper,
-          },
-        }}
-      >
-        {drawer}
-      </Drawer>
+      <AuthDialog
+        open={authDialogOpen}
+        onClose={handleAuthDialogClose}
+        initialTab={authDialogTab}
+      />
     </>
   );
 };

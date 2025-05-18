@@ -12,14 +12,14 @@ const HomePage = lazy(() => import("./pages/home-page"));
 const AboutPage = lazy(() => import("./pages/about-page"));
 const DoctorsPage = lazy(() => import("./pages/doctors-page"));
 const ContactUsPage = lazy(() => import("./pages/contact-us-page"));
-const LoginPage = lazy(() => import("./pages/login-page"));
+// const LoginPage = lazy(() => import("./pages/login-page"));
 const ProfilePage = lazy(() => import("./pages/profile-page"));
-const RegisterPage = lazy(() => import("./pages/register-page"));
+// const RegisterPage = lazy(() => import("./pages/register-page"));
 const NotFoundPage = lazy(() => import("./pages/not-found-page"));
 const AppointmentsPage = lazy(() => import("./pages/appointments-page"));
 const AppointmentPage = lazy(() => import("./pages/appointment-page"));
 const PublicLayout = lazy(() => import("./layouts/patient/public-layout"));
-const AuthLayout = lazy(() => import("./layouts/patient/auth-layout"));
+// const AuthLayout = lazy(() => import("./layouts/patient/auth-layout"));
 const PrivateLayout = lazy(() => import("./layouts/patient/private-layout"));
 
 const router = createBrowserRouter([
@@ -35,13 +35,7 @@ const router = createBrowserRouter([
       { path: "/contact", element: <ContactUsPage /> },
     ],
   },
-  {
-    element: <AuthLayout />,
-    children: [
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-    ],
-  },
+
   {
     element: <PrivateLayout />,
     children: [
