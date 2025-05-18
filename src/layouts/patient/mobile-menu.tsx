@@ -104,6 +104,7 @@ export const MobileMenu = ({
                 color: theme.palette.common.white,
                 marginTop: 2,
                 width: "90%",
+                padding: 1,
                 mx: "auto",
                 borderRadius: 1,
                 "&:hover": {
